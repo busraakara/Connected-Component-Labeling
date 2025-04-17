@@ -1,19 +1,134 @@
-# Connected Component Labelling
+Connected Component Labeling with Two-Pass Algorithm
+Bu proje, herhangi bir harici kütüphane kullanılmadan, bağıl bileşen etiketleme (Connected Component Labeling, CCL) problemini çözmek için Two-Pass algoritmasının saf Python ile uygulanmasını içermektedir. Kodlar, algoritmanın mantığını öğretici ve modüler bir şekilde açıklamak amacıyla fonksiyonlar hâlinde yazılmıştır.
 
-Connected components labeling scans an image and groups its pixels into components based on pixel connectivity, all pixels in a connected component share similar pixel intensity values and are in some way connected with each other. Once all groups have been determined, each pixel is labeled with a graylevel or a color (color labeling) according to the component it was assigned to.
-Extracting and labeling of various disjoint and connected components in an image is central to many automated image analysis applications.
+📌 Bağlı Bileşen Etiketleme Nedir?
+Bağlı bileşen etiketleme (Connected Component Labeling, CCL), ikili (binary) görüntülerdeki birbirine bitişik (komşu) olan pikselleri tespit ederek bu kümeleri benzersiz etiketlerle ayıran temel bir görüntü işleme yöntemidir. Görüntüdeki nesneleri ve arka planı ayırmak, nesne sayımı yapmak ya da nesneler üzerinde ölçümler gerçekleştirmek gibi birçok temel analiz için ön koşul niteliğindedir.
 
-# How It Works
+Bir bağlı bileşen, belirli bir bağlantılılık (4'lü veya 8'li komşuluk) tanımına göre, aynı değere (genellikle "1") sahip ve birbirine bağlı olan piksellerin oluşturduğu bir kümedir.
 
-Connected component labeling works by scanning an image, pixel-by-pixel (from top to bottom and left to right) in order to identify connected pixel regions, regions of adjacent pixels which share the same set of intensity values V. (For a binary image V={1}; however, in a graylevel image V will take on a range of values, for example: V={51, 52, 53, ..., 77, 78, 79, 80}.)
+🔍 Bağlı Bileşen Etiketlemede Kullanılan Yöntemler
+Bağlı bileşen etiketleme için literatürde farklı algoritmalar geliştirilmiştir. En yaygın kullanılan yöntemler şunlardır:
 
-Connected component labeling works on binary or graylevel images and different measures of connectivity are possible. However, for the following we assume binary input images and 8-connectivity. The connected components labeling operator scans the image by moving along a row until it comes to a point p (where p denotes the pixel to be labeled at any stage in the scanning process) for which V={1}. When this is true, it examines the four neighbors of p which have already been encountered in the scan (the neighbors (i) to the left of p, (ii) above it, and (iii and iv) the two upper diagonal terms). Based on this information, the labeling of p occurs as follows:
+One-Pass (Tek Geçişli) Yöntemler
+Genellikle union-find (birleştir-bul) veri yapısını paralel programlamayla birleştiren yöntemlerdir. GPU uygulamaları için uygundur ancak veri yapısı ve eşzamanlılık nedeniyle karmaşıktır.
 
-·If all four neighbors are 0, assign a new label to p, else
-·if only one neighbor has V={1}, assign its label to p, else
-·if more than one of the neighbors have V={1}, assign one of the labels to p and make a note of the equivalences.
-After completing the scan, the equivalent label pairs are sorted into equivalence classes and a unique label is assigned to each class. As a final step, a second scan is made through the image, during which each label is replaced by the label assigned to its equivalence classes. For display, the labels might be different graylevels or colors.
+Two-Pass (İki Geçişli) Algoritma
+Basitliği ve teorik açıklanabilirliği açısından sıklıkla tercih edilir. İlk geçişte etiket ataması yapılırken, ikinci geçişte bu etiketler sadeleştirilerek nihai hale getirilir.
 
-# Bağlı Bileşen Etiketleme Yöntemi
-Bağlı Bileşen Etiketleme Yöntemi, ikili(siyah-beyaz) görüntüyü tarayarak birbiriyle bağlntılı olan pikselleri aynı etiket değerleri ile etiketleyen bir Nesne Etiketleme yöntemidir. Bu etiketleme işlemi ile görüntülerdeki nesnelerin konumları tespit edilmiş olur. Hatta konumları tespit edilen bileşenler birbirlerinin 
-dikdörtgensel alanına girmiş olsalar bile ayrı ayrı başka görüntülere aktarılabilir ve nesne tespiti için kolaylık sağlar. Bu yöntem için birçok algoritma bulunmaktadır. Örneğin: 
+Multi-Pass (Çok Geçişli) ve Rekürsif Yöntemler
+Bu tür algoritmalar genellikle tekrarlı olarak tüm görüntüde tarama yaparak değişiklik kalmayana kadar çalışırlar. Hesaplama maliyetleri yüksektir.
+
+🧠 Two-Pass Algoritması Nasıl Çalışır?
+Two-Pass algoritması, iki aşamalı bir işlemdir:
+
+İlk Geçiş (Labeling + Equivalence):
+Görüntü satır satır taranır. Her pikselin komşuları (genellikle üst ve sol komşular) kontrol edilerek:
+
+Komşularda etiket yoksa, yeni bir etiket atanır.
+
+Komşularda tek bir etiket varsa, bu etiket atanır.
+
+Komşularda birden fazla etiket varsa, en küçük etiket atanır ve bu etiketlerin eşdeğer olduğu kaydedilir.
+
+İkinci Geçiş (Label Resolution):
+İlk geçişte oluşturulan etiket eşdeğerliliği (equivalence table) çözülerek, tüm geçici etiketler nihai etiketlerine dönüştürülür. Böylece her bağlı bileşen benzersiz ve tutarlı bir şekilde etiketlenmiş olur.
+
+✅ Avantajları
+Uygulaması basit ve öğreticidir.
+
+Herhangi bir dış kütüphane veya karmaşık veri yapısı gerektirmez.
+
+Küçük ve orta ölçekli görüntülerde oldukça verimlidir.
+
+❌ Dezavantajları
+Büyük görüntülerde bellek erişimi ve eşdeğerlik çözümlemesi nedeniyle yavaş çalışabilir.
+
+Paralel programlamaya uygun değildir.
+
+📚 Two-Pass Algoritmasının Teorik Anlatımı
+Two-Pass algoritması, temel olarak etiketleme ve etiket çözümleme olmak üzere iki aşamalı bir işlem dizisine dayanır. Bu süreçte kullanılan temel kavramlar:
+
+4’lü / 8’li Komşuluk:
+Piksellerin birbirine bağlı sayılabilmesi için aralarındaki mekânsal ilişki. 4’lü komşulukta sadece yukarı, aşağı, sağ ve sol; 8’li komşulukta çaprazlar da dahil edilir.
+
+Eşdeğerlik (Equivalence):
+İki veya daha fazla etiketin aynı bağlı bileşene ait olduğunun anlaşılmasıdır. Bu eşdeğerlikler, birleştir-bul (union-find) veri yapısı ile veya sade dizisel yapı ile tutulabilir.
+
+Etiket Propagasyonu:
+Eşdeğer etiketlerin sadeleştirilerek en küçük temsilci etiket ile ifade edilmesidir.
+
+Aşağıdaki matematiksel ifade, bir pikselin etiketlenme sürecini açıklar:
+
+Verilen bir piksel 
+𝑝
+p, komşu pikselleri kümesi 
+𝑁
+(
+𝑝
+)
+N(p) ile tanımlansın. Eğer 
+∃
+𝑞
+∈
+𝑁
+(
+𝑝
+)
+∃q∈N(p) ve 
+𝐼
+(
+𝑞
+)
+=
+1
+I(q)=1, o halde:
+
+Eğer 
+∀
+𝑞
+∈
+𝑁
+(
+𝑝
+)
+,
+𝐿
+(
+𝑞
+)
+=
+0
+∀q∈N(p),L(q)=0 ise: yeni etiket ata.
+
+Eğer 
+∃
+𝑞
+∈
+𝑁
+(
+𝑝
+)
+,
+𝐿
+(
+𝑞
+)
+>
+0
+∃q∈N(p),L(q)>0 ise: en küçük 
+𝐿
+(
+𝑞
+)
+L(q)'yi ata.
+
+Eğer birden fazla 
+𝐿
+(
+𝑞
+)
+>
+0
+L(q)>0 ise: eşdeğerlikleri kaydet.
+
+İkinci geçişte, her etiket için eşdeğerlik tablosundan nihai etikete dönüştürme işlemi gerçekleştirilir.
