@@ -79,8 +79,3 @@ Aşağıdaki görselde, Two-Pass algoritmasının sırasıyla aşamaları görü
 Yazılmış olan kodun karmaşık bir resim üzerinde denenerek elde edilmiş çıktısı aşağıda görülmektedir. Burada her bir nesne farklı bir etiket değeri ile etiketlendikten sonra random renk atamasıyla gösterilir.
 
 <img width="960" alt="sonuç" src="https://github.com/user-attachments/assets/2d729055-c05d-4ff3-87a4-04468737b9dd" />
-
-
-## 🛠️ Lisans
-
-Bu proje MIT Lisansı altında lisanslanmıştır. Ayrıntılar için `LICENSE` dosyasına göz atınız.
