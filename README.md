@@ -67,18 +67,18 @@ Verilen bir piksel \( p \), komşu pikselleri kümesi \( N(p) \) ile tanımlans�
 İkinci geçişte, her etiket için eşdeğerlik tablosundan nihai etikete dönüştürme işlemi gerçekleştirilir.
 
 ## 🔄 Two-Pass Algoritmasının Görsel Açıklaması
+<img width="533" alt="image" src="https://github.com/user-attachments/assets/30c06308-b608-45b5-9f4c-881585059695" />
 
-![Two-Pass Algoritması Görseli](https://www.aishack.in/static/images/connected-components/first-pass.png)
+Yukaridaki görselde, Two-Pass algoritmasının sırasıyla aşamaları görülmektedir. 1. tarama sırasında bağlı olduğu tespit edilen etiket değerleri bir listede biriktirilerek düzenlenir ve 2. taradama en küçük etiket değerinden başlanılarak etiket ataması gerçekleştirilir. 
 
-*Kaynak: [AI Shack](https://www.aishack.in/tutorials/labelling-connected-components-example/)*
+*Kaynak: [Book](*Dereli, S. (2023). Computer vision with MATLAB applications (p. 184). Seçkin Publishing.)*
 
-Yukarıdaki görsel, Two-Pass algoritmasının ilk geçişinde etiketleme sürecini göstermektedir. Her piksel, komşularına göre etiketlenir ve eşdeğerlikler kaydedilir.
+## 📎 Kod Çıktısı
 
-## 📎 Faydalı Kaynaklar
+Yazılmış olan kodun karmaşık bir resim üzerinde denenerek elde edilmiş çıktısı aşağıda görülmektedir. Burada her bir nesne farklı bir etiket değeri ile etiketlendikten sonra random renk atamasıyla gösterilir.
 
-- [AI Shack: Connected Components Labeling](https://www.aishack.in/tutorials/labelling-connected-components-example/)
-- [CodeProject: Connected Component Labeling](https://www.codeproject.com/Articles/336915/Connected-Component-Labeling-Algorithm)
-- [HandWiki: Connected-component labeling](https://handwiki.org/wiki/Connected-component_labeling)
+<img width="960" alt="sonuç" src="https://github.com/user-attachments/assets/2d729055-c05d-4ff3-87a4-04468737b9dd" />
+
 
 ## 🛠️ Lisans
 
