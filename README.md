@@ -1,4 +1,4 @@
-# Connected Component Labeling with Two-Pass Algorithm
+# Connected Component Labeling, Two-Pass Algoritması
 
 Bu proje, herhangi bir harici kütüphane kullanılmadan, bağlı bileşen etiketleme (Connected Component Labeling, CCL) problemini çözmek için **Two-Pass** algoritmasının saf Python ile uygulanmasını içermektedir. Kodlar, algoritmanın mantığını öğretici ve modüler bir şekilde açıklamak amacıyla fonksiyonlar hâlinde yazılmıştır.
 
