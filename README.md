@@ -67,9 +67,10 @@ Verilen bir piksel \( p \), komşu pikselleri kümesi \( N(p) \) ile tanımlans�
 İkinci geçişte, her etiket için eşdeğerlik tablosundan nihai etikete dönüştürme işlemi gerçekleştirilir.
 
 ## 🔄 Two-Pass Algoritmasının Görsel Açıklaması
-<img width="533" alt="image" src="https://github.com/user-attachments/assets/30c06308-b608-45b5-9f4c-881585059695" />
 
-Yukaridaki görselde, Two-Pass algoritmasının sırasıyla aşamaları görülmektedir. 1. tarama sırasında bağlı olduğu tespit edilen etiket değerleri bir listede biriktirilerek düzenlenir ve 2. taradama en küçük etiket değerinden başlanılarak etiket ataması gerçekleştirilir. 
+Aşağıdaki görselde, Two-Pass algoritmasının sırasıyla aşamaları görülmektedir. 1. tarama sırasında bağlı olduğu tespit edilen etiket değerleri bir listede biriktirilerek düzenlenir ve 2. taradama en küçük etiket değerinden başlanılarak etiket ataması gerçekleştirilir. 
+
+<img width="533" alt="image" src="https://github.com/user-attachments/assets/30c06308-b608-45b5-9f4c-881585059695" />
 
 *Kaynak: [Book](*Dereli, S. (2023). Computer vision with MATLAB applications (p. 184). Seçkin Publishing.)*
 
